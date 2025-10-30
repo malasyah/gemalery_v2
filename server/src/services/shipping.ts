@@ -1,5 +1,3 @@
-import fetch from "node-fetch";
-
 export interface ShippingQuery {
 	originCityId: string; // RajaOngkir city_id for origin
 	destinationCityId: string; // RajaOngkir city_id for destination
@@ -33,7 +31,7 @@ export async function getJneRates(query: ShippingQuery): Promise<ShippingRate[]>
 		method: "POST",
 		headers: { key: RAJAONGKIR_API_KEY, "Content-Type": "application/x-www-form-urlencoded" },
 		body,
-	});
+	} as any);
 	if (!res.ok) throw new Error(`RajaOngkir error: ${await res.text()}`);
 	const data = await res.json();
 	const costs: any[] = data?.rajaongkir?.results?.[0]?.costs || [];

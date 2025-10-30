@@ -1,5 +1,3 @@
-import fetch from "node-fetch";
-
 const MIDTRANS_SERVER_KEY = process.env.MIDTRANS_SERVER_KEY || "";
 const MIDTRANS_BASE = process.env.MIDTRANS_BASE || "https://api.sandbox.midtrans.com/v2";
 
@@ -30,7 +28,7 @@ export async function createPayment(req: PaymentRequest) {
 				bank_transfer: { bank: "bca" },
 				customer_details: req.customer || {},
 			}),
-		});
+		} as any);
 		return await resp.json();
 	} else {
 		const resp = await fetch(`${MIDTRANS_BASE}/charge`, {
@@ -41,7 +39,7 @@ export async function createPayment(req: PaymentRequest) {
 				transaction_details: { order_id: req.orderId, gross_amount: req.grossAmount },
 				customer_details: req.customer || {},
 			}),
-		});
+		} as any);
 		return await resp.json();
 	}
 }

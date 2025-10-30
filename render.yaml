@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: gemalery-server
+    env: node
+    rootDir: server
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CORS_ORIGIN
+        value: https://your-client-host
+      - key: RAJAONGKIR_API_KEY
+        sync: false
+      - key: RAJAONGKIR_BASE
+        value: https://api.rajaongkir.com/pro
+      - key: MIDTRANS_SERVER_KEY
+        sync: false
+      - key: MIDTRANS_BASE
+        value: https://api.sandbox.midtrans.com/v2

@@ -12,7 +12,12 @@ import transactionRoutes from "./routes/transactions";
 
 export function createApp() {
 	const app = express();
-	app.use(cors({ origin: process.env.CORS_ORIGIN?.split(",").map(s => s.trim()) || "*", credentials: true }));
+	const allowedOrigins = process.env.CORS_ORIGIN?.split(",").map(s => s.trim()).filter(Boolean);
+	app.use(cors({
+		origin: allowedOrigins && allowedOrigins.length > 0 ? allowedOrigins : true,
+		credentials: !!(allowedOrigins && allowedOrigins.length > 0),
+	}));
+	app.options("*", cors());
 	app.use(express.json());
 	app.use(morgan("dev"));
 

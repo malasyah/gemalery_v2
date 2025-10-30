@@ -1,6 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import { verifyJwt } from "../utils/jwt";
 
+declare global {
+	namespace Express {
+		interface Request {
+			user?: { userId: string; role: string };
+		}
+	}
+}
+
 export interface AuthRequest extends Request {
 	user?: { userId: string; role: string };
 }
